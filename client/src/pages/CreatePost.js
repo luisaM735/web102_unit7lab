@@ -1,18 +1,20 @@
 import React, {useState} from 'react';
 import './CreatePost.css'
-import { supabase } from '../client.js'
+import { supabase } from './client.js'
 
 const CreatePost = () => {
 
     const [post, setPost] = useState({title: "", author: "", description: ""})
 
     const createPost = async (event) => {
+        event.preventDefault();
         await supabase
             .from('Posts')
             .insert({title: post.title, author: post.author, description: post.description})
             .select();
+
         window.location = "/";
-    }
+    };
 
     const handleChange = (event) => {
         const {name, value} = event.target;
